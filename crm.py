@@ -1,19 +1,15 @@
 import re
 import string
+from typing import List
+
+from tinydb import TinyDB, where
+from pathlib import Path
 
 
 class User:
-    """
-    Class that generates new instances of users
-    """
+    DB = TinyDB(Path(__file__).parent / 'db.json', indent=4)
+
     def __init__(self, first_name: str, last_name: str, phone_number: str = "", address: str = ""):
-        """
-        __init__ method that helps us define properties for our objects.
-        :param first_name: str
-        :param last_name: str
-        :param phone_number: str or None
-        :param address: str or None
-        """
         self.first_name = first_name
         self.last_name = last_name
         self.phone_number = phone_number
@@ -28,6 +24,10 @@ class User:
     @property
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
+
+    @property
+    def db_instance(self):
+        return User.DB.get((where('first_name') == self.first_name) & (where('last_name') == self.last_name))
 
     def _check_phone_number(self):
         phone_number = re.sub(r"[+()\s]*", "", self.phone_number)
@@ -48,15 +48,28 @@ class User:
         self._check_names()
         self._check_phone_number()
 
+    def exists(self) -> bool:
+        return bool(self.db_instance)
+
+    def delete(self) -> List[int]:
+        if self.exists():
+            return User.DB.remove(doc_ids=[self.db_instance.doc_id])
+        return []
+
+    def save(self, validate_data: bool = False) -> int:
+        if validate_data:
+            self._checks()
+
+        if self.exists():
+            return -1
+        else:
+            return User.DB.insert(self.__dict__)
+
+
+def get_all_users():
+    return [User(**user) for user in User.DB.all()]
+
 
 if __name__ == '__main__':
-    from  faker import Faker
-    fake = Faker(locale="fr_FR")
-    user = User(
-        first_name=fake.first_name(),
-        last_name=fake.last_name(),
-        phone_number=Faker().phone_number(),
-        address=fake.address(),
-    )
-    print(user)
-    print("-" * 10)
+    julie = User("Julie", "Courtois")
+    print(julie.delete())
