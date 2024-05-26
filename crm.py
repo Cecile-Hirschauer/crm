@@ -1,3 +1,7 @@
+import re
+import string
+
+
 class User:
     """
     Class that generates new instances of users
@@ -25,16 +29,34 @@ class User:
     def full_name(self):
         return f"{self.first_name} {self.last_name}"
 
+    def _check_phone_number(self):
+        phone_number = re.sub(r"[+()\s]*", "", self.phone_number)
+        if len(phone_number) < 10 or not phone_number.isdigit():
+            raise ValueError(f"Invalid phone number {self.phone_number}.")
+
+    def _check_names(self):
+        if not self.first_name and not self.last_name:
+            raise ValueError("Please enter both first_name and last_name.")
+
+        special_characters = string.punctuation + string.digits
+
+        for char in self.first_name + self.last_name:
+            if char in special_characters:
+                raise ValueError(f"Invalid character {self.full_name}.")
+
+    def _checks(self):
+        self._check_names()
+        self._check_phone_number()
+
 
 if __name__ == '__main__':
     from  faker import Faker
     fake = Faker(locale="fr_FR")
-    for _ in range(10):
-        user = User(
-            first_name = fake.first_name(),
-            last_name = fake.last_name(),
-            phone_number = fake.phone_number(),
-            address = fake.address()
-        )
-        print(user)
-        print("-" * 10)
+    user = User(
+        first_name=fake.first_name(),
+        last_name=fake.last_name(),
+        phone_number=Faker().phone_number(),
+        address=fake.address(),
+    )
+    print(user)
+    print("-" * 10)
