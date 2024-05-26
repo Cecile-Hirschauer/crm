@@ -13,10 +13,6 @@ This project is a basic Customer Relationship Management (CRM) system that allow
 - **Object-Oriented Design**: Transition from procedural to object-oriented programming.
 - **Web Application**: Expand functionality with a web interface using Django.
 
-## Project Structure
-
-(TODO: Describe the project structure here)
-
 ## Getting Started
 
 ### Prerequisites
