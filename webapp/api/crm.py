@@ -206,5 +206,20 @@ def get_all_users() -> List[User]:
 
 
 if __name__ == '__main__':
-    julie = User("Julie", "Courtois")
-    print(julie.delete())
+    user1 = User(
+        first_name="Aline",
+        last_name="Bron",
+        phone_number="0610101010",
+        address="1 rue du Cherche-Midi, Toulouse"
+    )
+    user2 = User(
+        first_name="Edouard",
+        last_name="Carpentier",
+        phone_number="0610101012",
+        address="33 place du 1er Mai, Meudon"
+    )
+
+    user1.save()
+    user2.save()
+
+
