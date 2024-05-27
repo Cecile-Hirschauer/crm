@@ -5,8 +5,10 @@
 <head>
     <meta charset="UTF-8">
     <title>Mon carnet d'adresses</title>
+    <!-- Include Bootstrap CSS from CDN for styling -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <!-- Include custom CSS for additional styling -->
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <body>
@@ -17,32 +19,36 @@
 
 <div class="container">
     <div class="row g-4">
-
-
+        <!-- Loop through each user in the users context variable -->
         {% for user in users %}
         <div class="col-md-6 col-lg-4">
             <div class="card">
                 <div class="card-body">
+                    <!-- Display the user's full name as the card title -->
                     <h3 class="card-title">{{user.full_name}}</h3>
                     <div class="card-text">
+                        <!-- Conditionally display the user's phone number if it exists -->
                         {% if user.phone_number %}<p class="text-primary">{{user.phone_number}}</p>{% endif %}
+                        <!-- Conditionally display the user's address if it exists -->
                         {% if user.address %}<p>{{user.address}}</p>{% endif %}
                     </div>
+                    <!-- Form to delete the user -->
                     <form method="POST" action="{% url 'delete-contact' %}">
                         {% csrf_token %}
+                        <!-- Hidden inputs to pass the user's first and last name -->
                         <input type="hidden" name="first_name" value="{{user.first_name}}"/>
                         <input type="hidden" name="last_name" value="{{user.last_name}}"/>
+                        <!-- Submit button to delete the contact -->
                         <button type="submit" class="btn btn-danger">Supprimer</button>
                     </form>
                 </div>
             </div>
         </div>
         {% endfor %}
-
-
     </div>
 
     <div class="row g-4 mt-5">
+        <!-- Form to add a new contact -->
         <form method="POST" action="{% url 'add-contact' %}">
             {% csrf_token %}
             <div class="mb-3">
@@ -61,12 +67,11 @@
                 <label for="address" class="form-label">Adresse</label>
                 <textarea name="address" id="address" rows="3" class="form-control"></textarea>
             </div>
+            <!-- Submit button to add the contact -->
             <button type="submit" class="btn btn-primary">Ajouter</button>
         </form>
     </div>
-
 </div>
-
 
 </body>
 </html>

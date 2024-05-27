@@ -41,8 +41,14 @@ Including another URLconf
 from django.urls import path
 from contacts.views import index, add_contact, delete_contact
 
+# Define URL patterns for the contacts app
 urlpatterns = [
+    # URL pattern for the index view, mapped to the root URL
     path('', index, name='index'),
+
+    # URL pattern for the add_contact view, mapped to 'add/' URL
     path('add/', add_contact, name='add-contact'),
+
+    # URL pattern for the delete_contact view, mapped to 'delete/' URL
     path('delete/', delete_contact, name='delete-contact'),
 ]
