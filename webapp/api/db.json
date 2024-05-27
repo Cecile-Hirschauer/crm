@@ -1,11 +1,5 @@
 {
     "_default": {
-        "1": {
-            "first_name": "C\u00e9line",
-            "last_name": "Pasquier",
-            "phone_number": "0123456789",
-            "address": "2 rue du Temple 75010 Paris"
-        },
         "2": {
             "first_name": "Jaques ",
             "last_name": "Lesage",
@@ -17,18 +11,6 @@
             "last_name": "Thomas",
             "phone_number": "4569871203",
             "address": "7 Avenue de la Republique 54000 Nancy"
-        },
-        "4": {
-            "first_name": "M\u00e9lanie",
-            "last_name": "Carton",
-            "phone_number": "0610101010",
-            "address": ""
-        },
-        "5": {
-            "first_name": "Eric",
-            "last_name": "Baroin",
-            "phone_number": "",
-            "address": "7 chemin de la Colline 74000 Truc"
         }
     }
 }

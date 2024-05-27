@@ -7,14 +7,20 @@
 <body>
 <h1>Mon carnet d'adresses</h1>
 {% for user in users %}
+
     <h2>{{user.full_name}}</h2>
-    {% if user.phone_number %}
-        <p>{{user.phone_number}}</p>
-    {% endif %}
-    {% if user.address %}
-        <p>{{user.address}}</p>
-    {% endif %}
+    {% if user.phone_number %}<p>{{user.phone_number}}</p>{% endif %}
+    {% if user.address %}<p>{{user.address}}</p>{% endif %}
+
+    <form method="POST" action="{% url 'delete-contact' %}">
+        {% csrf_token %}
+        <input type="hidden" name="first_name" value="{{user.first_name}}" />
+        <input type="hidden" name="last_name" value="{{user.last_name}}" />
+        <button type="submit">Supprimer</button>
+    </form>
+
 {% endfor %}
+
 <form method="POST" action="{% url 'add-contact' %}">
     {% csrf_token %}
     <label for="first_name">Prénom</label>

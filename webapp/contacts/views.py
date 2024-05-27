@@ -16,3 +16,11 @@ def add_contact(request):
     new_contact.save()
 
     return redirect('index')
+
+
+def delete_contact(request):
+    first_name = request.POST.get('first_name')
+    last_name = request.POST.get('last_name')
+    contact_to_delete = User(first_name=first_name, last_name=last_name)
+    contact_to_delete.delete()
+    return redirect('index')
