@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Mon carnet d'adresses</title>
+</head>
+<body>
+<h1>Mon carnet d'adresses</h1>
+{% for user in users %}
+<h2>{{user.full_name}}</h2>
+{% endfor %}
+</body>
+</html>
