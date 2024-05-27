@@ -104,7 +104,7 @@ The `User` class handles all operations related to user management.
 Here's an example of how to create a user and save it to the database:
 
 ```python
-from crm import User
+from webapp.api.crm import User
 
 # Create a user instance
 john = User(first_name="John", last_name="Doe", phone_number="1234567890", address="123 Elm Street")
